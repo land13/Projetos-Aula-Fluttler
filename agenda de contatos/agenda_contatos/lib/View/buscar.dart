@@ -1,4 +1,8 @@
 
+import 'package:agenda_contatos/Model/contato.dart';
+import 'package:agenda_contatos/Model/contatoService.dart';
+import 'package:agenda_contatos/View/Cadastro.dart';
+import 'package:agenda_contatos/View/perfil.dart';
 import 'package:agenda_contatos/View/recursos/BarraSuperior.dart';
 import 'package:agenda_contatos/View/recursos/Menu.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,6 +16,8 @@ class Busca extends StatefulWidget {
 }
 
 class BuscaState extends State<Busca> {
+  ContatoService service = new ContatoService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,9 +26,11 @@ class BuscaState extends State<Busca> {
       drawer: new MenuDrawer(),
 
       body: ListView.builder(
-        padding: EdgeInsets.fromLTRB(8, 8, 8, 8),
-        itemCount: 3,
+        padding: EdgeInsets.fromLTRB(8, 8, 8, 78),
+        itemCount: service.listarContatos().length,
         itemBuilder: (BuildContext context, int index) {
+          Contato contato = service.listarContatos().elementAt(index);
+
           return Container(
             color: Colors.blue,
             padding: EdgeInsets.all(5),
@@ -30,7 +38,39 @@ class BuscaState extends State<Busca> {
             child: ListTile(
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [],
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: Image.asset(
+                      contato.foto,
+                      width: 75,
+                      height: 75,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+
+                  Column(
+                    children: [
+                      Text(
+                        contato.nome + " " + contato.sobrenome,
+                        style: TextStyle(
+                          color: Colors.grey.shade400,
+                          fontSize: 24
+                        ),
+                      ),
+
+                      SizedBox(height: 25),
+
+                      Text(
+                        "51 992966651",
+                        style: TextStyle(
+                          fontSize: 18
+                        ),
+                      ),
+
+                    ],
+                  ),
+                ],
               ),
 
               trailing: IconButton(
@@ -40,7 +80,10 @@ class BuscaState extends State<Busca> {
                   size:32
                 ),
                 onPressed: () {
-                  
+                  Navigator.push(
+                    context, 
+                    MaterialPageRoute(builder: (context) => Perfil(id: contato.id,))
+                  );
                 },
               ),
             ),
@@ -48,6 +91,20 @@ class BuscaState extends State<Busca> {
         } 
       ),
 
+      floatingActionButton: FloatingActionButton(
+
+        child: FaIcon(
+          FontAwesomeIcons.plus,
+          size: 24,
+        ),
+
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Cadastro())
+          );
+        },
+      ),
 
     );
   }

@@ -9,7 +9,9 @@ ThemeData estilo() {
     colorScheme: ColorScheme.dark(),
 
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: Colors.red
+      backgroundColor: Colors.red,
+      foregroundColor: Colors.white,
+      hoverColor: Colors.blue
     )
   );
 }

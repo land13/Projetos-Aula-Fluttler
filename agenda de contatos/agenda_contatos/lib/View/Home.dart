@@ -1,4 +1,5 @@
 
+import 'package:agenda_contatos/View/Cadastro.dart';
 import 'package:agenda_contatos/View/buscar.dart';
 import 'package:agenda_contatos/View/recursos/BarraSuperior.dart';
 import 'package:agenda_contatos/View/recursos/Menu.dart';
@@ -113,7 +114,7 @@ class HomeState extends State<Home> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Home())
+                            MaterialPageRoute(builder: (context) => Cadastro())
                           );
                         },
 
